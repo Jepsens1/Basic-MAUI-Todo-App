@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:VM="clr-namespace:ToDoApp.ViewModels"
+             xmlns:model="clr-namespace:ToDoApp.Models"
+             x:DataType="VM:MainPageViewModel"
+             x:Class="ToDoApp.MainPage">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!--Allow user to either click the Create button to create a todo item, or press return key to create a todo item-->
+        <Entry Text="{Binding TodoText}" Placeholder="Todo item" ReturnCommand="{Binding CreateTodoCommand}" HeightRequest="20"/>
+        <Button Grid.Column="1" Text="Create" Command="{Binding CreateTodoCommand}" HeightRequest="20" WidthRequest="75" Margin="10"/>
+        <CollectionView Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding TodoItems}" Margin="10">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="2"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:ToDoModel">
+                    <Frame>
+                        <Frame.GestureRecognizers>
+                            <!--Marks a todo item completed when a user double taps an item-->
+                            <TapGestureRecognizer NumberOfTapsRequired="2" Command="{Binding Source={RelativeSource AncestorType={x:Type VM:MainPageViewModel}}, Path=MarkCompleteCommand}"
+                                                  CommandParameter="{Binding .}"/>
+                            <!--Bind to model in the frame-->
+                        </Frame.GestureRecognizers>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="10"/>
+                            </Grid.RowDefinitions>
+                            <Label MaxLines="20" Text="{Binding Title}" FontSize="24" FontAttributes="Bold">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding IsComplete}" Value="True">
+                                        <Setter Property="TextDecorations" Value="Strikethrough"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Label" Binding="{Binding IsComplete}" Value="False">
+                                        <Setter Property="TextDecorations" Value="None"/>
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                            <Button Text="Delete" BackgroundColor="Red" Command="{Binding Source={RelativeSource AncestorType={x:Type VM:MainPageViewModel}}, Path=DeleteTodoCommand}"
+                                    CommandParameter="{Binding .}" HorizontalOptions="End" WidthRequest="75"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <Label Text="Your todo list is empty" FontSize="24"/>
+            </CollectionView.EmptyView>
+        </CollectionView>
+    </Grid>
+
+</ContentPage>
