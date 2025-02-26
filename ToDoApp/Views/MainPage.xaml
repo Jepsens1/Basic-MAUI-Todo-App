@@ -15,7 +15,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!--Allow user to either click the Create button to create a todo item, or press return key to create a todo item-->
-        <Entry Text="{Binding TodoText}" Placeholder="Todo item" ReturnCommand="{Binding CreateTodoCommand}" HeightRequest="20"/>
+        <Entry Text="{Binding TodoText}" Placeholder="Title" ReturnCommand="{Binding CreateTodoCommand}" HeightRequest="20"/>
         <Button Grid.Column="1" Text="Create" Command="{Binding CreateTodoCommand}" HeightRequest="20" WidthRequest="75" Margin="10"/>
         <CollectionView Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding TodoItems}" Margin="10">
             <CollectionView.ItemsLayout>
