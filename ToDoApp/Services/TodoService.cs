@@ -48,7 +48,10 @@ namespace ToDoApp.Services
             await Init();
             return await m_DataBase.UpdateAsync(selectedTodo);
         }
-
+        /// <summary>
+        /// Returns all ToDoModel's in database
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<ToDoModel>> GetItemsAsync()
         {
             await Init();
