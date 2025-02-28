@@ -29,31 +29,31 @@
                                        CommandParameter="{Binding .}"/>
                         </SwipeView.RightItems>
                         <Frame>
-                        <Frame.GestureRecognizers>
-                            <!--Marks a todo item completed when a user double taps an item-->
-                            <TapGestureRecognizer NumberOfTapsRequired="2" Command="{Binding Source={RelativeSource AncestorType={x:Type VM:MainPageViewModel}}, Path=MarkCompleteCommand}"
+                            <Frame.GestureRecognizers>
+                                <!--Marks a todo item completed when a user double taps an item-->
+                                <TapGestureRecognizer NumberOfTapsRequired="2" Command="{Binding Source={RelativeSource AncestorType={x:Type VM:MainPageViewModel}}, Path=MarkCompleteCommand}"
                                                   CommandParameter="{Binding .}"/>
-                            <!--Bind to model in the frame-->
-                        </Frame.GestureRecognizers>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="10"/>
-                            </Grid.RowDefinitions>
-                            <Label MaxLines="20" Text="{Binding Title}" FontSize="24" FontAttributes="Bold">
-                                <Label.Triggers>
-                                    <DataTrigger TargetType="Label" Binding="{Binding IsComplete}" Value="True">
-                                        <Setter Property="TextDecorations" Value="Strikethrough"/>
-                                    </DataTrigger>
-                                    <DataTrigger TargetType="Label" Binding="{Binding IsComplete}" Value="False">
-                                        <Setter Property="TextDecorations" Value="None"/>
-                                    </DataTrigger>
-                                </Label.Triggers>
-                            </Label>
+                                <!--Bind to model in the frame-->
+                            </Frame.GestureRecognizers>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="10"/>
+                                </Grid.RowDefinitions>
+                                <Label MaxLines="20" Text="{Binding Title}" FontSize="24" FontAttributes="Bold">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label" Binding="{Binding IsComplete}" Value="True">
+                                            <Setter Property="TextDecorations" Value="Strikethrough"/>
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Label" Binding="{Binding IsComplete}" Value="False">
+                                            <Setter Property="TextDecorations" Value="None"/>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
                                 <Button IsVisible="{OnPlatform Android=False, iOS=False, WinUI=True, MacCatalyst=True}" Text="Delete" BackgroundColor="Red" Command="{Binding Source={RelativeSource AncestorType={x:Type VM:MainPageViewModel}}, Path=DeleteTodoCommand}"
                                     CommandParameter="{Binding .}" HorizontalOptions="End" WidthRequest="75"/>
-                        </Grid>
-                    </Frame>
+                            </Grid>
+                        </Frame>
                     </SwipeView>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
